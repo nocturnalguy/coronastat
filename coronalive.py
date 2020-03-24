@@ -2,7 +2,6 @@
 
 from bs4 import BeautifulSoup as soup
 import requests
-import json
 from random import choice
 from terminaltables import AsciiTable
 
