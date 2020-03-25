@@ -173,11 +173,22 @@ def displayCountryInfo( corona ):
 	print( table.table )
 
 def displayHelp():
-	print( "\n > usage : coronalive [ OPTIONS ]\n" );
-	print( " > commands : " );
-	print( " -h/--help		Opens the help for this CLI tool." );
-	print( " -c/--country 		Opens statewise COVID-19 statistics ( only India's data is possible till now )." );
-	print( " -w/--world 		Opens countrywise COVID-19 statistics.\n" );
+	print( "\nUsage : coronastat [ OPTIONS ]\n" );
+	print( "Commands : " );
+	# print( " -h, --help		Opens the help for this CLI tool." );
+	# print( " -c, --country 		Opens statewise COVID-19 statistics ( only India's data is possible till now )." );
+	# print( " -w, --world 		Opens countrywise COVID-19 statistics.\n" );
+
+	table = [
+		[ "Options", "Functions" ],
+		[ "-h, --help", "Opens the help for this CLI tool." ],
+		[ "-c, --country", "Opens statewise COVID-19 statistics ( only India's data is possible till now )." ],
+		[ "-w, --world", "Opens countrywise COVID-19 statistics." ]
+	]
+
+	table = AsciiTable( table )
+	print( table.table )
+	
 
 ######### DRIVER METHOD ##########
 

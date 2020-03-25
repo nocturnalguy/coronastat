@@ -1,4 +1,4 @@
-# Coronalive
+# coronastat
 A simple CLI for visualising the different cases, mortality and natality rates etc live in the terminal or CMD or any console.
 
 # Required dependencies
