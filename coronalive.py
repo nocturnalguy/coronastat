@@ -63,6 +63,47 @@ class Corona:
 
 		return page
 
+	def extractCounts( self, page, choice = "w" ):
+		total_cases = None
+		total_deaths = None
+		total_cured = None
+
+		if( choice == "w" ):
+			total_cases = page.findAll( "div", {
+				"id": "maincounter-wrap"
+			} )[ 0 ].div.text.strip()
+
+			total_deaths = page.findAll( "div", {
+				"id": "maincounter-wrap"
+			} )[ 1 ].div.text.strip()
+
+			total_cured = page.findAll( "div", {
+				"id": "maincounter-wrap"
+			} )[ 2 ].div.text.strip()
+
+		elif( choice == "c" ):
+			total_cases = int( page.findAll( "div",{
+				"class": "table-responsive" 
+			} )[ 7 ].tbody.findAll( "tr" )[ -1 : ][ 0 ].findAll( "td" )[ 1 ].text.strip() )
+
+			total_cases += int( page.findAll( "div",{
+				"class": "table-responsive" 
+			} )[ 7 ].tbody.findAll( "tr" )[ -1 : ][ 0 ].findAll( "td" )[ 2 ].text.strip() )
+
+			total_deaths = int( page.findAll( "div",{
+				"class": "table-responsive" 
+			} )[ 7 ].tbody.findAll( "tr" )[ -1 : ][ 0 ].findAll( "td" )[ 4 ].text.strip() )
+
+			total_cured = int( page.findAll( "div",{
+				"class": "table-responsive" 
+			} )[ 7 ].tbody.findAll( "tr" )[ -1 : ][ 0 ].findAll( "td" )[ 3 ].text.strip() )
+
+		counts = AsciiTable( [ 
+			[ "Total Cases", "Total Deaths", "Total Cured" ],
+			[ total_cases, total_deaths, total_cured ]
+		] )
+		return counts
+
 	########## EXTRACTING THE TABLE ###########
 
 	def extractTableData( self, page, choice = "w" ):
@@ -78,7 +119,7 @@ class Corona:
 
 				# table_heading = [ item.text.strip() for item in table.thead.tr if item != "\n" ]
 
-				table_heading = [ "Country", "Confirmed\nCases", "New Cases", "Confirmed\nDeaths", "New Deaths", "Recovered", "Active cases", "Serious/Critical\ncases" ];
+				table_heading = [ "Country", "Confirmed\nCases", "New Cases", "Confirmed\nDeaths", "New Deaths", "Recovered", "Active cases", "Serious/\nCritical cases" ];
 
 				table_content = []
 				for rows in table.tbody:
@@ -100,7 +141,7 @@ class Corona:
 
 				# table_heading = [ item.text.strip() for item in table.thead.tr if item != "\n" ]
 
-				table_heading = [ "Sl. No.", "States/\nUnion Territories", "Confirmed cases\n( Indian National )", "Confirmed cases\n( Foreign National )", "Cured/Discharged/Migrated", "Death" ];
+				table_heading = [ "Sl. No.", "States/\nUnion Territories", "Confirmed cases\n( Indian National )", "Confirmed cases\n( Foreign National )", "Cured/Discharged/\nMigrated", "Death" ];
 
 				table_content = []
 				for rows in table.tbody:
@@ -115,28 +156,43 @@ class Corona:
 				exit();
 		return table
 
+def displayWorldInfo( corona ):
+	print( "\nFetching data. Please wait...\n" );
+	page = corona.getPageResponse( WORLD_URL )
+	counts = corona.extractCounts( page, "w" )
+	table = corona.extractTableData( page, "w" )
+	print( counts.table + "\n" )
+	print( table.table )
+
+def displayCountryInfo( corona ):
+	print( "\nFetching data. Please wait...\n" );
+	page = corona.getPageResponse( INDIA_URL )
+	counts = corona.extractCounts( page, "c" )
+	table = corona.extractTableData( page, "c" )
+	print( counts.table + "\n" )
+	print( table.table )
+
+def displayHelp():
+	print( "\n > usage : coronalive [ OPTIONS ]\n" );
+	print( " > commands : " );
+	print( " -h/--help		Opens the help for this CLI tool." );
+	print( " -c/--country 		Opens statewise COVID-19 statistics ( only India's data is possible till now )." );
+	print( " -w/--world 		Opens countrywise COVID-19 statistics.\n" );
 
 ######### DRIVER METHOD ##########
 
 def main():
 	corona = Corona();
 	args = sys.argv
-
-	if( args[ 1 ] == "-w" or args[ 1 ] == "--world" ):
-		page = corona.getPageResponse( WORLD_URL )
-		table = corona.extractTableData( page, "w" )
-		print( table.table )
+	
+	if( len( args ) == 1 or args[ 1 ] == "-h" or args[ 1 ] == "--help" ):
+		displayHelp()
+	elif( args[ 1 ] == "-w" or args[ 1 ] == "--world" ):
+		displayWorldInfo( corona )
 	elif( args[ 1 ] == "-c" or args[ 1 ] == "--country" ):
-		page = corona.getPageResponse( INDIA_URL )
-		table = corona.extractTableData( page, "c" )
-		print( table.table )
-	elif( args[ 1 ] == "-h" or args[ 1 ] == "--help" ):
-		print( "\n usage : coronalive [ OPTIONS ]\n" );
-		print( " options : " );
-		print( " coronalive -h/--help		Opens the help for this CLI tool." );
-		print( " coronalive -c/--country 	Opens statewise COVID-19 statistics ( only India's data is possible till now )." );
-		print( " coronalive -w/--world 		Opens countrywise COVID-19 statistics.\n" );
+		displayCountryInfo( corona )
 
 if __name__ == "__main__":
 	main()
+
 
