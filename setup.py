@@ -22,12 +22,12 @@ setup(
 	author_email = "rahulgupta0097@gmail.com",
 	license = "MIT",
 	classifiers = [
-		"License :: OSI Approved :: MIT license",
+		"License :: OSI Approved :: MIT License",
 		"Programming Language :: Python :: 3",
 		"Programming Language :: Python :: 3.5",
 		"Programming Language :: Python :: 3.7",
 	],
-	packages = [ "coronastat" ],
+	packages = [ "corona" ],
 	include_package_data = True,
 	install_requires = [ "requests", "terminaltables", "bs4" ],
 	entry_points = {

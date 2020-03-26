@@ -1,0 +1,3 @@
+[console_scripts]
+coronastat = corona.__init__:main
+

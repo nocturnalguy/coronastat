@@ -1,0 +1,23 @@
+Metadata-Version: 2.1
+Name: coronastat
+Version: 1.0.0
+Summary: A python package to display countrywise and statewise ( India ) statistics of coronavirus ( COVID-19 ) in the terminal in tabular fashion
+Home-page: https://github.com/theNocturnalGuy/coronastat
+Author: Rahul Gupta
+Author-email: rahulgupta0097@gmail.com
+License: MIT
+Description: # coronastat
+        A simple CLI for visualising the different cases, mortality and natality rates etc live in the terminal or CMD or any console.
+        
+        # Required dependencies
+        1. BeautifulSoup
+        2. Requests
+        3. Random
+        4. Terminaltables
+        5. Sys
+Platform: UNKNOWN
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.7
+Description-Content-Type: text/markdown

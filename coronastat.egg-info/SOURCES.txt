@@ -1,0 +1,14 @@
+LICENSE
+MANIFEST.in
+README.md
+setup.py
+corona/__init__.py
+corona/corona.py
+corona/proxy.py
+corona/utils.py
+coronastat.egg-info/PKG-INFO
+coronastat.egg-info/SOURCES.txt
+coronastat.egg-info/dependency_links.txt
+coronastat.egg-info/entry_points.txt
+coronastat.egg-info/requires.txt
+coronastat.egg-info/top_level.txt
