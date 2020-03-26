@@ -13,7 +13,7 @@ PROXY_TIMEOUT = 3
 
 ########## DECLARING STYLES ##########
 
-class color:
+class style:
 	PURPLE = "\033[95m"
 	CYAN = "\033[96m"
 	DARKCYAN = "\033[36m"
@@ -26,14 +26,27 @@ class color:
 	ITALIC = "\033[3m"
 	END = "\033[0m"
 
+######### EXTRACTING NUMBER FROM STRING  #########
+
+def extractNumbers( string ):
+	dig = ""
+	for c in string: 
+		if c.isdigit():
+			dig += c
+	return dig
+
 ######### DISPLAYING THE COUNTRYWISE STATISTICS #########
 
 def displayWorldInfo( corona ):
 	print( "\nFetching data. Please wait...\n" );
 	page = corona.getPageResponse( WORLD_URL )
+	if not page:
+		print( "\nSorry, couldn't fetch any information for you." )
+		print( "\nMaybe you don't have a working internet connection or\nthe source are blocking the application\n" )
+		exit()
 	counts = corona.extractCounts( page, "w" )
 	table = corona.extractTableData( page, "w" )
-	print( color.RED + color.BOLD + counts.table + color.END + "\n" )
+	print( style.RED + style.BOLD + counts.table + style.END + "\n" )
 	print( table.table )
 
 ######### DISPLAYING THE STATEWISE STATISTICS #########
@@ -41,9 +54,13 @@ def displayWorldInfo( corona ):
 def displayCountryInfo( corona ):
 	print( "\nFetching data. Please wait...\n" );
 	page = corona.getPageResponse( INDIA_URL )
+	if not page:
+		print( "\nSorry, couldn't fetch any information for you." )
+		print( "\nMaybe you don't have a working internet connection or\nthe source are blocking the application\n" )
+		exit()
 	counts = corona.extractCounts( page, "c" )
 	table = corona.extractTableData( page, "c" )
-	print( color.RED + color.BOLD + counts.table + color.END + "\n" )
+	print( style.RED + style.BOLD + counts.table + style.END + "\n" )
 	print( table.table )
 
 ######### DISPLAYING THE HELP #########
@@ -65,7 +82,7 @@ def displayHelp():
 
 def displayASCIIArt():
 	print( 
-		color.CYAN + color.ITALIC + color.BOLD + 
+		style.CYAN + style.ITALIC + style.BOLD + 
 		'''\n
 	
    ██████╗ ██████╗ ██████╗  ██████╗ ███╗   ██╗ █████╗ ███████╗████████╗ █████╗ ████████╗
@@ -76,7 +93,7 @@ def displayASCIIArt():
    ╚═════╝ ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═╝╚══════╝   ╚═╝   ╚═╝  ╚═╝   ╚═╝   
    Developed by: Rahul Gupta                                                                                   
 		\n'''
-		+ color.END
+		+ style.END
 	);
 
 ######### DISPLAYING THE LOADING ANIMATION #########

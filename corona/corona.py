@@ -16,11 +16,12 @@ class Corona:
 	######## GETTING THE HTML PAGE THROUGH GET REQUEST ########
 
 	def getPageResponse( self, url ):
+		page = None
 		try:
 		  resp = requests.get( url, timeout = MAX_TIMEOUT )
 		  page = soup( resp.text, 'lxml' ) 
-		except:
-			print( "\n\n ###### STARTING RANDOM PROXIES #######" );
+		except requests.ConnectionError:
+			print( "\n###### STARTING RANDOM PROXIES #######\n" );
 			resp = self.proxy.loadDataByIPRotation( url )
 			page = soup( resp.text, 'lxml' )
 
@@ -45,21 +46,21 @@ class Corona:
 			} )[ 2 ].div.text.strip()
 
 		elif( choice == "c" ):
-			total_cases = int( page.findAll( "div",{
+			total_cases = int( extractNumbers( page.findAll( "div",{
 				"class": "table-responsive" 
-			} )[ 7 ].tbody.findAll( "tr" )[ -1 : ][ 0 ].findAll( "td" )[ 1 ].text.strip() )
+			} )[ 7 ].tbody.findAll( "tr" )[ -2 : -1 ][ 0 ].findAll( "td" )[ 1 ].text.strip() ) )
 
 			total_cases += int( page.findAll( "div",{
 				"class": "table-responsive" 
-			} )[ 7 ].tbody.findAll( "tr" )[ -1 : ][ 0 ].findAll( "td" )[ 2 ].text.strip() )
+			} )[ 7 ].tbody.findAll( "tr" )[ -2 : -1 ][ 0 ].findAll( "td" )[ 2 ].text.strip() )
 
 			total_deaths = int( page.findAll( "div",{
 				"class": "table-responsive" 
-			} )[ 7 ].tbody.findAll( "tr" )[ -1 : ][ 0 ].findAll( "td" )[ 4 ].text.strip() )
+			} )[ 7 ].tbody.findAll( "tr" )[ -2 : -1 ][ 0 ].findAll( "td" )[ 4 ].text.strip() )
 
 			total_cured = int( page.findAll( "div",{
 				"class": "table-responsive" 
-			} )[ 7 ].tbody.findAll( "tr" )[ -1 : ][ 0 ].findAll( "td" )[ 3 ].text.strip() )
+			} )[ 7 ].tbody.findAll( "tr" )[ -2 : -1 ][ 0 ].findAll( "td" )[ 3 ].text.strip() )
 
 		counts = AsciiTable( [ 
 			[ "Total Cases", "Total Deaths", "Total Cured" ],
@@ -93,7 +94,7 @@ class Corona:
 				table_content.insert( 0, table_heading )
 				table = AsciiTable( table_content )
 			except:
-				print( "\nSorry, couldn't fetch any information for you.\n" )
+				print( "\nSource page format has changed." )
 				exit();
 
 		elif choice == "c":
@@ -113,9 +114,9 @@ class Corona:
 				    table_content.append( data )
 
 				table_content.insert( 0, table_heading )
-				table = AsciiTable( table_content[ : -1 ] )
+				table = AsciiTable( table_content[ : -2 ] )
 			except:
-				print( "\n\n NO DATA RECIEVED !!" )
+				print( "\nSource page format has changed." )
 				exit();
 		return table
 

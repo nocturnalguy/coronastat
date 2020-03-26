@@ -14,7 +14,12 @@ class _proxy:
 	page = None
 
 	def __init__( self ):
-		self.page = soup( requests.get( self.PROXY_URL ).text, 'lxml' )
+		try:
+			self.page = soup( requests.get( self.PROXY_URL ).text, 'lxml' )
+		except requests.ConnectionError:
+			print( "\nSorry, couldn't fetch any information for you." )
+			print( "\nMaybe you don't have a working internet connection or\nthe source are blocking the application\n" )
+			exit();
     
 	def _getSSLProxyDictionary( self ):
  
@@ -33,9 +38,9 @@ class _proxy:
 				print( 'Retry {} Using Proxy : {}'.format( count, proxy_dictionary ) )
 				response = requests.get( url, proxies = proxy_dictionary, timeout = PROXY_TIMEOUT )
 				break
-			except:
+			except requests.ConnectionError:
 				pass
-			count=count+1
+			count = count + 1
 		return response
 
 
