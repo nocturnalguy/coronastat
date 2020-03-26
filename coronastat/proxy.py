@@ -3,7 +3,7 @@
 from __future__ import print_function
 from bs4 import BeautifulSoup as soup
 from random import choice
-from utils import PROXY_TIMEOUT 
+from .utils import PROXY_TIMEOUT 
 import requests
 
 ######## DECLARING THE CLASS FOR SCRAPING SSLPROXIES.COM ########

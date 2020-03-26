@@ -4,8 +4,8 @@ from __future__ import print_function
 from bs4 import BeautifulSoup as soup
 from random import choice
 from terminaltables import AsciiTable
-from proxy import _proxy
-from utils import *
+from .proxy import _proxy
+from .utils import *
 import requests
 
 ######## DECLARING THE CLASS FOR GETTING COVID-19 DATA ########

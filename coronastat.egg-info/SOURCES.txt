@@ -2,10 +2,11 @@ LICENSE
 MANIFEST.in
 README.md
 setup.py
-corona/__init__.py
-corona/corona.py
-corona/proxy.py
-corona/utils.py
+coronastat/__init__.py
+coronastat/corona.py
+coronastat/driver.py
+coronastat/proxy.py
+coronastat/utils.py
 coronastat.egg-info/PKG-INFO
 coronastat.egg-info/SOURCES.txt
 coronastat.egg-info/dependency_links.txt

@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: coronastat
-Version: 1.0.0
+Version: 1.0.3
 Summary: A python package to display countrywise and statewise ( India ) statistics of coronavirus ( COVID-19 ) in the terminal in tabular fashion
 Home-page: https://github.com/theNocturnalGuy/coronastat
 Author: Rahul Gupta

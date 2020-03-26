@@ -1,7 +1,7 @@
 ########### IMPORTING THE REQURIED LIBRARIES ###########
 
-from corona import Corona
-from utils import *
+from .corona import Corona
+from .utils import *
 import sys
 
 ######### DRIVER METHOD ##########

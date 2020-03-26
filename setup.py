@@ -13,7 +13,7 @@ def getReadmeFileContents():
 
 setup(
 	name = "coronastat",
-	version = "1.0.0",
+	version = "1.0.3",
 	description = "A python package to display countrywise and statewise ( India ) statistics of coronavirus ( COVID-19 ) in the terminal in tabular fashion",
 	long_description = getReadmeFileContents(),
 	long_description_content_type = "text/markdown",
@@ -27,12 +27,12 @@ setup(
 		"Programming Language :: Python :: 3.5",
 		"Programming Language :: Python :: 3.7",
 	],
-	packages = [ "corona" ],
+	packages = [ "coronastat" ],
 	include_package_data = True,
 	install_requires = [ "requests", "terminaltables", "bs4" ],
 	entry_points = {
 		"console_scripts": [
-			"coronastat = corona.__init__:main",
+			"coronastat = coronastat.driver:main",
 		]
 	}
 )
